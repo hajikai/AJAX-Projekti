@@ -74,6 +74,10 @@ img {
     display: inline-block;
     vertical-align: middle;
   }
+  
+.expain {
+  line-height: 1;
+}
 
 .kuva {
   width: 100px;

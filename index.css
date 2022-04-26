@@ -74,9 +74,9 @@ img {
     display: inline-block;
     vertical-align: middle;
   }
-  
-.expain {
-  line-height: 1;
+
+.explain {
+  line-height: 0.3;
 }
 
 .kuva {

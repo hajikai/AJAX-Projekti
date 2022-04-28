@@ -1,4 +1,4 @@
-// Aluksi määrittelen kaikki globaalit muuttujat, joita tulen käyttämään, kuten kaikki eri hakujen JSON-objektit. En ole ihan varma, miksi tein useamman - kai jossain vaiheessa debukaakseni. 
+// Aluksi määrittelen kaikki globaalit muuttujat, joita tulen käyttämään, kuten kaikki eri hakujen JSON-objektit. En ole ihan varma, miksi tein useamman - kai jossain vaiheessa debukaakseni.
 // Ei valitettavasti nyt ole aikaa lähteä muuttamaan koodia, sillä aloitin aika viime tipassa.
 // Määrittelen JSON-objektien lisäksi 'spot' ja 'table' -muuttujat, hakusanan ('search'), API-avaimen ('searchKey'), hakumuodon ('artist.search' alustavasti) sekä valittuArtisti ja valittuAlbumi,
 // joita tulen käyttämään myöhemmin.
@@ -38,8 +38,8 @@ function lataaJSONDoc(search) {
   var newSearch = search;
   if (methodName == "artist.search") {
     console.log("Ladataan tiedot palvelimelta..." + newSearch);
-    methodName = 'artist.search';
-    methodSearch = 'artist';
+    methodName = "artist.search";
+    methodSearch = "artist";
     var xhttp = new XMLHttpRequest();
     var urli =
       "https://ws.audioscrobbler.com/2.0/?method=" +
@@ -58,15 +58,18 @@ function lataaJSONDoc(search) {
         console.log(jsonObj1);
         spot.style.display = "none";
 
-// Jos haku onnistui ongelmitta, niin sitten siirrytään printArtistTable()-funktioon, joka tulostaa ko. artistihaun tuottaman taulun.
+        // Jos haku onnistui ongelmitta, niin sitten siirrytään printArtistTable()-funktioon, joka tulostaa ko. artistihaun tuottaman taulun.
 
         printArtistTable(jsonObj1);
       } else if (this.readyState == 4 && this.status == 404) {
+        // Jos haku ei mene läpi, niin käyttäjä saa Error-viestin.
 
-// Jos haku ei mene läpi, niin käyttäjä saa Error-viestin.
-    
         alert(
-          "Artist not found. Error: " + this.status + " & " + this.readyState + "."
+          "Artist not found. Error: " +
+            this.status +
+            " & " +
+            this.readyState +
+            "."
         );
         return;
       }
@@ -75,12 +78,12 @@ function lataaJSONDoc(search) {
     xhttp.send();
   }
 
-// Sama tapahtuma, mutta albumihaulla.
+  // Sama tapahtuma, mutta albumihaulla.
 
   if (methodName == "album.search") {
     console.log("Ladataan tiedot palvelimelta..." + newSearch);
-    methodName = 'album.search';
-    methodSearch = 'album';
+    methodName = "album.search";
+    methodSearch = "album";
     var xhttp = new XMLHttpRequest();
     var urli =
       "https://ws.audioscrobbler.com/2.0/?method=" +
@@ -119,12 +122,11 @@ function printAlbumTable(jsonObj0) {
   var data = jsonObj0;
   var määrä = data.results["opensearch:totalResults"];
   var out =
-    "<table><tbody id='table'><tr><th>Albumi</th><th>Albumin nimi</th><th>Artisti</th><th>Linkki</th></tr>";
+    "<table><tbody id='table'><tr><th>Picture</th><th>Album</th><th>Artist</th><th>Link</th></tr>";
   if (data.hasOwnProperty("results") == true) {
     if (data.results.hasOwnProperty("albummatches") == true) {
       if (data.results.albummatches.hasOwnProperty("album") == true) {
-
-// Tarkistan onko tuloksien määrä alle 50, jos on niin menen tuloksien määrällä. En halua 50 enempää, ettei sivu mene ihan tukkoon.
+        // Tarkistan onko tuloksien määrä alle 50, jos on niin menen tuloksien määrällä. En halua 50 enempää, ettei sivu mene ihan tukkoon.
 
         if (määrä < 50) {
           for (let i = 0; i < määrä; i++) {
@@ -187,8 +189,7 @@ function printAlbumTable(jsonObj0) {
             out += "</tr>";
           }
         } else {
-
-// Sama kuin edellinen, mutta jos tuloksia on yli 30 kappaletta.
+          // Sama kuin edellinen, mutta jos tuloksia on yli 30 kappaletta.
 
           for (let i = 0; i < 50; i++) {
             var artisti = data.results.albummatches.album[i].artist;
@@ -252,7 +253,7 @@ function printAlbumTable(jsonObj0) {
         }
         out += "</table>";
 
-// Lopuksi syötetään out-elementissä oleva taulu 'searchdata'-elementtiin ja hälytetään jos haun tulokset ovat jotenkin outoja - silloin on yleensä mennyt jotain pahasti vikaan.
+        // Lopuksi syötetään out-elementissä oleva taulu 'searchdata'-elementtiin ja hälytetään jos haun tulokset ovat jotenkin outoja - silloin on yleensä mennyt jotain pahasti vikaan.
 
         document.getElementById("searchdata").innerHTML = out;
       } else {
@@ -265,7 +266,7 @@ function printAlbumTable(jsonObj0) {
     window.alert("No data found.");
   }
 
-// Lopuksi ajan Valitse()-funktion, joka määrittelee EventListener-funktiot taulun albumeille / artisteille, jotta niitä voi painaa.
+  // Lopuksi ajan Valitse()-funktion, joka määrittelee EventListener-funktiot taulun albumeille / artisteille, jotta niitä voi painaa.
 
   valitse();
 }
@@ -276,7 +277,7 @@ function printArtistTable(jsonObj) {
   var data = jsonObj;
   var määrä = data.results["opensearch:totalResults"];
   var out =
-    "<table><tbody id='table'><tr><th>Artistin kuva</th><th>Artistin nimi</th><th>Kuuntelijoiden määrä</th><th>Linkki</th></tr>";
+    "<table><tbody id='table'><tr><th>Picture</th><th>Artist</th><th>Listeners</th><th>Link</th></tr>";
   if (data.hasOwnProperty("results") == true) {
     if (data.results.hasOwnProperty("artistmatches") == true) {
       if (data.results.artistmatches.hasOwnProperty("artist") == true) {
@@ -296,10 +297,10 @@ function printArtistTable(jsonObj) {
               if (imageURL !== "") {
                 out += "<td class='pic'><img src='" + imageURL + "'></td>";
               } else {
-                out += "<td class='pic'>Ei kuvaa.</td>";
+                out += "<td class='pic'>Picture not found.</td>";
               }
             } else {
-              out += "<td class='pic'>Ei kuvaa.</td>";
+              out += "<td class='pic'>Picture not found.</td>";
             }
             if (
               data.results.artistmatches.artist[i].hasOwnProperty("name") ==
@@ -325,7 +326,7 @@ function printArtistTable(jsonObj) {
                 "<td>" +
                 "<a href='" +
                 URL +
-                "'target='_blank'>Linkki</a>" +
+                "'target='_blank'>Link</a>" +
                 "</td>";
             } else {
               out += "<td>No URL found.</td>";
@@ -400,7 +401,7 @@ function printArtistTable(jsonObj) {
   valitse();
 }
 
-// Tässä aiemmin mainittu Valitse()-funktio, joka antaa EventListener-funktiot jokaiselle taulun kohdalle. Eli jos painan jotain albumia / artistia, niin saan auki ylimääräisen 
+// Tässä aiemmin mainittu Valitse()-funktio, joka antaa EventListener-funktiot jokaiselle taulun kohdalle. Eli jos painan jotain albumia / artistia, niin saan auki ylimääräisen
 // fixed position DIV:n esille, jossa on lisätietoa artistista / albumista. Tämä funktio ajaa ensimmäisen osan toiminnasta.
 // Käytän ValittuAlbumi ja valittuArtisti -muuttujia muistamaan mitä olen painanut.
 // Sitten käytän funktiota tulosta() tekemään visuaaliset muutokset, koska tässä funktiossa niiden tekeminen oli välillä ongelmallista - haku tapahtui liian hitaasti eikä funkio löytänyt
@@ -456,8 +457,8 @@ function valitse() {
   }
 }
 
-// tulosta()-funktiossa siis teen itse visuaaliset muutokset muuttamalla ko. tr-elementin class-arvoa mikäli sen sisällä oleva artistin (tai albumin ja artistin) nimi / nimet vastaavat 
-// valittuArtisti ja valittuAlbumi -muuttujien arvoja. Sen jälkeen ajan getAlbumData() tai getArtistData() -funktiot riippuen hakumuodosta. 
+// tulosta()-funktiossa siis teen itse visuaaliset muutokset muuttamalla ko. tr-elementin class-arvoa mikäli sen sisällä oleva artistin (tai albumin ja artistin) nimi / nimet vastaavat
+// valittuArtisti ja valittuAlbumi -muuttujien arvoja. Sen jälkeen ajan getAlbumData() tai getArtistData() -funktiot riippuen hakumuodosta.
 
 function tulosta() {
   var table = document.getElementById("searchdata");
@@ -567,19 +568,24 @@ function printArtistData(jsonObj3) {
   var julkaistu = data.artist.bio.published;
   var ontour = data.artist.ontour;
   if (data.hasOwnProperty("artist") == true) {
-    var out = "<div class='otsikko'><h2 id='albumname'>" + valittuArtisti + "</h2></div>";
-    out += "<button type='button' class='collapsible'>Biography</button><div class='content'>";
-      if (data.artist.bio.hasOwnProperty("content") == true) {
-        if (data.artist.bio.content !== "") {
-          out += "<p>" + bio + "</p>";
-        } else {
-          out += "<p>Information not found.</p>";
-        }
+    var out =
+      "<div class='otsikko'><h2 id='albumname'>" +
+      valittuArtisti +
+      "</h2></div>";
+    out +=
+      "<button type='button' class='collapsible'>Biography</button><div class='content'>";
+    if (data.artist.bio.hasOwnProperty("content") == true) {
+      if (data.artist.bio.content !== "") {
+        out += "<p>" + bio + "</p>";
       } else {
         out += "<p>Information not found.</p>";
       }
-      out += "</div>";
-      out += "<button type='button' class='collapsible'>Tags</button><div class='content'>";
+    } else {
+      out += "<p>Information not found.</p>";
+    }
+    out += "</div>";
+    out +=
+      "<button type='button' class='collapsible'>Tags</button><div class='content'>";
     if (data.artist.hasOwnProperty("tags") == true) {
       if (data.artist.tags.hasOwnProperty("tag") == true) {
         if (data.artist.tags.tag.length !== 0) {
@@ -642,7 +648,7 @@ function printArtistData(jsonObj3) {
     window.alert("Data not found.");
   }
 
-// Tässä hieman toimitoa collapsible -elementeille, kuten printAlbumData() ja printArtistData():n tulostamat. Eli luon EventListener:n, joka avaa ja sulkee ne.
+  // Tässä hieman toimitoa collapsible -elementeille, kuten printAlbumData() ja printArtistData():n tulostamat. Eli luon EventListener:n, joka avaa ja sulkee ne.
 
   var coll = document.getElementsByClassName("collapsible");
 
@@ -709,7 +715,6 @@ function getAlbumData(jsonObj2) {
   xhttp.send();
 }
 
-
 // Tässä pitkälti sama toiminto kuin printAristData()-funktion kanssa, mutta albumidatan kanssa. Eli tsekkaan arvojava, tulostan jos ovat oikeita, tulostan jotain muuta jos eivät ole.
 // Sisältää hieman eri tietoja, mutta muuten samanlainen.
 
@@ -721,10 +726,10 @@ function printAlbumData(jsonObj2) {
   var data = jsonObj2;
   var kuuntelijat = data.album.listeners;
   var kuuntelukerrat = data.album.playcount;
-  
+
   if (data.hasOwnProperty("album") == true) {
     var out =
-      "<h2 id='albumname'>" + valittuArtisti + " - " + valittuAlbumi + "</h2>";
+      "<div class='otsikko'><h2 id='albumname'>" + valittuArtisti + " - " + valittuAlbumi + "</h2></div>";
     out +=
       "<button type='button' class='collapsible'>Tags</button><div class='content'>";
     if (data.album.hasOwnProperty("tags") == true) {
@@ -757,12 +762,12 @@ function printAlbumData(jsonObj2) {
         }
       } else {
         if (biisi !== "" || biisi !== "(null)" || biisi !== "null") {
-        for (let i = 0; i < data.album.tracks.track.length; i++) {
+          for (let i = 0; i < data.album.tracks.track.length; i++) {
             var biisi = data.album.tracks.track[i].name;
             out += "<p class='info'>" + biisi + "</p>";
-          } 
-          } else {
-            out += "<p class='info>No information found.</p>";
+          }
+        } else {
+          out += "<p class='info>No information found.</p>";
         }
       }
     } else {
@@ -806,6 +811,19 @@ function printAlbumData(jsonObj2) {
     document.getElementById("extradata").innerHTML = out;
   } else {
     window.alert("Something went wrong.");
+  }
+  var coll = document.getElementsByClassName("collapsible");
+
+  for (let i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function () {
+      this.classList.toggle("active");
+      var content = this.nextElementSibling;
+      if (content.style.display === "block") {
+        content.style.display = "none";
+      } else {
+        content.style.display = "block";
+      }
+    });
   }
 }
 

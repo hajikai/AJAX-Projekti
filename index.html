@@ -1,22 +1,27 @@
 <HTML>
 
 <head>
-    <title>Projekti 2 - AJAX Music Box</title>
+    <title>Project #2 - AJAX Music Box</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="index.css">
 </head>
-<h1>Projekti 2 - AJAX Music Box</h1>
-<hr />
+<h1>Project #2 - AJAX Music Box</h1>
+
+<div id="searchBar">
 <select name="mySelect" id="method" onchange="chooseMethod(method.value)">
-    <option value="artist">Artist search</option>
-    <option value="album">Album search</option>
+    <option value="artist">Artist</option>
+    <option value="album">Album</option>
 </select>
 <input id="albumsearch" placeholder="Search"></input>
-<button id="search" onclick="lataaJSONDoc(albumsearch.value)">Hae</button>
-<hr />
-<p class="explain">This is a Javascript-projekt that utilizes Last.fm's REST API to search for albums and artists from their database.</p>
-<p class="explain">Choose a search mode, write down the name of the artist / album you want to find, and click the search button.</p>
-<p class="explain">Click any one of the albums or artists on the list to learn more about them.</p>
+<button id="search" onclick="lataaJSONDoc(albumsearch.value)">Search</button>
+</div>
+<div id='information'>
+<p>This is a Javascript-projekt that utilizes Last.fm's REST API to search for albums and artists from their database.
+Choose a search mode, write down the name of the artist / album you want to find, and click the search button.
+Click any one of the albums or artists on the list to learn more about them. Click again to make the extra information disappear.</p>
+</div>
+
+
 <br><br>
 <div id="searchdata"></div>
 <div id="extradata">

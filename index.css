@@ -48,6 +48,19 @@ img {
     background-color: black;
 }
 
+#searchBar {
+  padding: 5px 0px 5px 0px;
+  /* border: solid #777;
+  border-width: 1px 0px; */
+  width: fit-content;
+}
+
+hr {
+  position: relative;
+  right: 550px;
+  width: 810px;
+}
+
 .chosen {
   background-color: #777;
   color: white;
@@ -129,15 +142,18 @@ img {
 }
 
 #albumsearch {
-    width: 700px;
-    background-color: #ddd;
+    width: 580px;
+    background-color: white;
     border: 1px solid#ddd;
     color: black;
     height: 20px;
     
 }
 
+#information {
+  width: 700px;
 
+}
 
 #method {
     background-color: #ddd;

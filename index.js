@@ -840,3 +840,14 @@ for (let i = 0; i < coll.length; i++) {
     }
   });
 }
+
+var help = document.getElementById('help');
+
+help.addEventListener('click', function () {
+  var info = document.getElementById('information');
+  if (info.style.display === 'block') {
+    info.style.display = "none";
+  } else {
+    info.style.display = "block";
+  }
+})
